@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Smarttin/go-rest-api/internal/database"
 	transportHTTP "github.com/Smarttin/go-rest-api/internal/transport/http"
 )
 
@@ -13,6 +14,12 @@ type App struct{}
 // Run - sets up our application
 func (app *App) Run() error {
 	fmt.Println("Setting up our app")
+
+	var err error
+	_, err = database.NewDatabase()
+	if err != nil {
+		return err
+	}
 
 	handler := transportHTTP.NewHandler()
 	handler.SetupRoutes()

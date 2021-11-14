@@ -52,7 +52,7 @@ func (s *Service) GetCommentsBySlug(slug string) ([]Comment, error) {
 
 // PostComment - adds a new comment to the database
 func (s *Service) PostComment(comment Comment) (Comment, error) {
-	if result := s.DB.Save(&comment); result != nil {
+	if result := s.DB.Save(&comment); result.Error != nil {
 		return Comment{}, result.Error
 	}
 	return comment, nil
